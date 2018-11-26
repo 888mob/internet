@@ -59,48 +59,30 @@ void dijsktra(int start)
 		}
 	}
 }
-void insertedge()
+void deleteedge()
 {
-	int a, b, c;
-	string ip1, ip2;
-	cout << "输入相连的路由器及其网络号和边的权值：";
-	cin >> a >> b >> c;
-	ip1 = v[a][0].ip;
-	ip2 = v[b][0].ip;
-	p.to = b;
-	p.weight = c;
-	p.ip = ip1;
-	v[a].push_back(p);
-	p.to = a;
-	p.weight = c;
-	p.ip = ip2;
-	v[b].push_back(p);
-}
-void insert()
-{
-	int a, b, c;
-	string ip1;
-	cout << "输入需增加的路由号：";
-	cin >> a;
-	n = max(n, a);
-	cout << "输入其网络号：";
-	cin >> ip1;
-	cout << "输入其相邻结点号及边的权值：（输入-1结束）";
-	while (1)
+	int a, b;
+	cout << "输入要边的两边顶点：";
+	cin >> a >> b;
+	int size1=v[a].size(), size2=v[b].size();
+	for (int i = 0; i < size1; i++)
 	{
-		cin >> b;
-		if (b == -1) break;
-		cin >> c;
-		p.to = b;
-		p.ip = ip1;
-		p.weight = c;
-		v[a].push_back(p);
-		p.to = a;
-		p.ip = v[b][0].ip;
-		p.weight = c;
-		v[b].push_back(p);
+		if (v[a][i].to == b)
+		{
+			v[a].erase(v[a].begin() + i);
+			break;
+		}
+	}
+	for (int i = 0; i < size2; i++)
+	{
+		if (v[b][i].to == a)
+		{
+			v[b].erase(v[b].begin() + i);
+			break;
+		}
 	}
 }
+
 int main()
 {
 	int start;
