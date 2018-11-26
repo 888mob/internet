@@ -59,6 +59,48 @@ void dijsktra(int start)
 		}
 	}
 }
+void insertedge()
+{
+	int a, b, c;
+	string ip1, ip2;
+	cout << "输入相连的路由器及其网络号和边的权值：";
+	cin >> a >> b >> c;
+	ip1 = v[a][0].ip;
+	ip2 = v[b][0].ip;
+	p.to = b;
+	p.weight = c;
+	p.ip = ip1;
+	v[a].push_back(p);
+	p.to = a;
+	p.weight = c;
+	p.ip = ip2;
+	v[b].push_back(p);
+}
+void insert()
+{
+	int a, b, c;
+	string ip1;
+	cout << "输入需增加的路由号：";
+	cin >> a;
+	n = max(n, a);
+	cout << "输入其网络号：";
+	cin >> ip1;
+	cout << "输入其相邻结点号及边的权值：（输入-1结束）";
+	while (1)
+	{
+		cin >> b;
+		if (b == -1) break;
+		cin >> c;
+		p.to = b;
+		p.ip = ip1;
+		p.weight = c;
+		v[a].push_back(p);
+		p.to = a;
+		p.ip = v[b][0].ip;
+		p.weight = c;
+		v[b].push_back(p);
+	}
+}
 int main()
 {
 	int start;
@@ -93,9 +135,9 @@ int main()
 		{
 			t = path[t];
 		}
-		cout << "��һ����" << t << endl;
-		cout << "��һ������ţ�" << v[t][0].ip << endl;
-		cout << "Ŀ��·�ɣ�" << i << endl;
+		cout << "下一跳：" << t << endl;
+		cout << "下一跳网络号：" << v[t][0].ip << endl;
+		cout << "目的路由：" << i << endl;
 		cout << "-----------" << endl;
 	}
 }
